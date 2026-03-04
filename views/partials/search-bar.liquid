@@ -1,0 +1,17 @@
+{% render "partials/header" %}
+
+<section class="search-bar">
+  <form action="/categorie" method="GET">
+    <input type="text" name="q" placeholder="Zoek een cadeau..." />
+    <select name="tag">
+      <option value="">Alle categorieën</option>
+      <option value="baby">Baby & Kind</option>
+      <option value="verjaardag">Verjaardag</option>
+      <option value="huwelijk">Huwelijk</option>
+      <option value="jubileum">Jubileum</option>
+    </select>
+    <button type="submit">Zoek</button>
+  </form>
+</section>
+
+{% render "partials/footer" %}
