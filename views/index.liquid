@@ -3,76 +3,33 @@
   <!-- Zoek/filter functionaliteit -->
   {% render "partials/search-bar" %}
 
- <main>
+ <main class="categoriepagina">
+  <section class="container">
 
-  <!-- Hero sectie -->
-  <section class="hero py-16 bg-gradient-to-r from-pink-100 to-white text-center">
-    <section class="container mx-auto px-4">
-      <h1 class="text-4xl font-bold mb-4">Vind het perfecte cadeau</h1>
-      <p class="text-lg mb-6">
-        Milledoni helpt je in je zoektocht naar dat ene cadeau dat zegt wat jij wilt vertellen. 
-        Zoek op leeftijd, budget of gelegenheid en ontdek reacties van anderen!
-      </p>
-      <a href="/categorie" class="button-primary">Bekijk cadeaus</a>
-    </section>
-  
-
-
-  <!-- Populaire producten -->
-  <section class="populaire-producten py-12 bg-white">
-    <section class="container mx-auto px-4">
-      <h2 class="text-2xl font-bold mb-4">Gespotte cadeaus</h2>
-      <p class="mb-6 text-gray-600">
-        Filter op categorie, prijs of populariteit en ontdek het perfecte cadeau!
-      </p>
-
-      {% assign filtered_products = products %}
-
-      {% if request.params.tag %}
-        {% assign filtered_products = filtered_products | where_exp: "item", "item.tags contains request.params.tag" %}
-      {% endif %}
-
-      {% if request.params.q %}
-        {% assign filtered_products = filtered_products | where_exp: "item", "item.name contains request.params.q" %}
-      {% endif %}
-
-      {% if request.params.price %}
-        {% assign price_range = request.params.price | split: "-" %}
-        {% assign filtered_products = filtered_products | where_exp: "item", "item.amount >= price_range[0] and (price_range[1] == blank or item.amount <= price_range[1])" %}
-      {% endif %}
-
-      <section class="product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for product in filtered_products %}
-          <article class="product-card border rounded-lg p-4 hover:shadow-lg transition">
-            <img src="{{ product.img | default: product.image }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded mb-4">
-            <h2 class="text-lg font-semibold mb-2">{{ product.name }}</h2>
-            <p class="text-gray-700 mb-2">€{{ product.amount }}</p>
-            <p class="text-sm text-gray-500 mb-4">
-              Shop: <a href="{{ product.shop_url }}" target="_blank" class="underline">{{ product.shop_name }}</a>
+    <section class="product-grid">
+      {% for product in products %}
+        <article class="product-card">
+          <section class="product-image">
+            <img src="{{ product.img | default: product.image }}" alt="{{ product.name }}">
+          </section>
+          <section class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="prijs">€{{ product.amount }}</p>
+            <p class="shop">
+              Shop:
+              <a href="{{ product.shop_url }}" target="_blank">{{ product.shop_name }}</a>
             </p>
-            <a href="/product/{{ product.slug }}" class="button w-full text-center">Bekijk product</a>
-          </article>
-        {% endfor %}
-      </section>
-    
-
-  <!-- Community inspiratie sectie -->
-  <section class="community py-12 bg-gray-50">
-    <section class="container mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold mb-6">Wat anderen zeggen</h3>
-      {% if community_posts.size > 0 %}
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-          {% for post in community_posts %}
-            <article class="p-4 border rounded-lg bg-white">
-              <p class="text-gray-700 mb-2">"{{ post.comment }}"</p>
-              <p class="text-sm text-gray-500">- {{ post.user_name }}</p>
-            </article>
-          {% endfor %}
-        </section>
-      {% else %}
-        <p class="mb-6">Ontdek reviews, reacties en ideeën van de Milledoni community bij cadeaus die je inspireren.</p>
-      {% endif %}
-      <a href="/community" class="button-primary">Bekijk reacties</a>
-  </section>
+            <p class="spotter">
+              Spotter:
+              {% if product.spotter_img %}
+                <img src="{{ product.spotter_img }}" alt="{{ product.spotter }}">
+              {% endif %}
+              {{ product.spotter }}
+            </p>
+            <a href="/product/{{ product.slug }}" class="button">Bekijk product</a>
+          </section>
+        </article>
+      {% endfor %}
+    </section>
 
 </main>

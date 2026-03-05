@@ -1,17 +1,57 @@
 {% render "partials/header" %}
+<form class="filter-columns">
 
-<section class="search-bar">
-  <form action="/categorie" method="GET">
-    <input type="text" name="q" placeholder="Zoek een cadeau..." />
-    <select name="tag">
-      <option value="">Alle categorieën</option>
-      <option value="baby">Baby & Kind</option>
-      <option value="verjaardag">Verjaardag</option>
-      <option value="huwelijk">Huwelijk</option>
-      <option value="jubileum">Jubileum</option>
+  <!-- Kolom 1: Voor wie -->
+  <section class="filter-column card">
+    <input type="text" name="recipient" placeholder="Ik zoek een cadeau voor..." value="{{ request.query.recipient | default: '' }}">
+    <input type="number" name="age" placeholder="Leeftijd" value="{{ request.query.age | default: '' }}">
+
+    <select name="gender">
+      <option value="">Hij / zij is...</option>
+      <option value="man" {% if request.query.gender == "man" %}selected{% endif %}>Man</option>
+      <option value="vrouw" {% if request.query.gender == "vrouw" %}selected{% endif %}>Vrouw</option>
     </select>
-    <button type="submit">Zoek</button>
-  </form>
-</section>
+
+    <select name="occasion">
+      <option value="">Het is voor...</option>
+      <option value="verjaardag" {% if request.query.occasion == "verjaardag" %}selected{% endif %}>Verjaardag</option>
+      <option value="kerst" {% if request.query.occasion == "kerst" %}selected{% endif %}>Kerst</option>
+      <option value="anders" {% if request.query.occasion == "anders" %}selected{% endif %}>Anders</option>
+    </select>
+  </section>
+
+  <!-- Kolom 2: Eigenschappen -->
+  <section class="filter-column card">
+    <input type="text" name="is" placeholder="Hij/zij is..." value="{{ request.query.is | default: '' }}">
+    <input type="text" name="has" placeholder="Hij/zij heeft..." value="{{ request.query.has | default: '' }}">
+    <input type="text" name="likes" placeholder="Hij/zij houdt van..." value="{{ request.query.likes | default: '' }}">
+    <input type="text" name="wants" placeholder="Hij/zij wil graag..." value="{{ request.query.wants | default: '' }}">
+    <input type="text" name="dislikes" placeholder="Hij/zij wil geen..." value="{{ request.query.dislikes | default: '' }}">
+  </section>
+
+  <!-- Kolom 3: Extra opties -->
+  <section class="filter-column card">
+    <select name="style">
+      <option value="">Soort cadeau...</option>
+      <option value="behoudend" {% if request.query.style == "behoudend" %}selected{% endif %}>Behoudend</option>
+      <option value="experimenteel" {% if request.query.style == "experimenteel" %}selected{% endif %}>Experimenteel</option>
+      <option value="hebben" {% if request.query.style == "hebben" %}selected{% endif %}>Hebben</option>
+      <option value="doen" {% if request.query.style == "doen" %}selected{% endif %}>Doen</option>
+    </select>
+
+    <section class="price-range">
+      <input type="number" name="minPrijs" placeholder="Min prijs" value="{{ request.query.minPrijs | default: '' }}">
+      <input type="number" name="maxPrijs" placeholder="Max prijs" value="{{ request.query.maxPrijs | default: '' }}">
+    </section>
+
+    <fieldset class="checkboxes">
+      <label><input type="checkbox" name="personalized" value="1" {% if request.query.personalized %}checked{% endif %}> Gepersonaliseerd</label>
+      <label><input type="checkbox" name="fastDelivery" value="1" {% if request.query.fastDelivery %}checked{% endif %}> Snelle levering</label>
+      <label><input type="checkbox" name="sustainable" value="1" {% if request.query.sustainable %}checked{% endif %}> Duurzaam</label>
+      <label><input type="checkbox" name="mailbox" value="1" {% if request.query.mailbox %}checked{% endif %}> Brievenbus</label>
+    </fieldset>
+  </section>
+
+</form>
 
 {% render "partials/footer" %}
