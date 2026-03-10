@@ -1,57 +1,82 @@
 {% render "partials/header" %}
 <form class="filter-columns">
 
-  <!-- Kolom 1: Voor wie -->
-  <section class="filter-column card">
-    <input type="text" name="recipient" placeholder="Ik zoek een cadeau voor..." value="{{ request.query.recipient | default: '' }}">
-    <input type="number" name="age" placeholder="Leeftijd" value="{{ request.query.age | default: '' }}">
+  <section class="search-bar">
 
-    <select name="gender">
-      <option value="">Hij / zij is...</option>
-      <option value="man" {% if request.query.gender == "man" %}selected{% endif %}>Man</option>
-      <option value="vrouw" {% if request.query.gender == "vrouw" %}selected{% endif %}>Vrouw</option>
-    </select>
+<h3>I'm looking for a Christmas gift for my boyfriend Marco</h3>
 
-    <select name="occasion">
-      <option value="">Het is voor...</option>
-      <option value="verjaardag" {% if request.query.occasion == "verjaardag" %}selected{% endif %}>Verjaardag</option>
-      <option value="kerst" {% if request.query.occasion == "kerst" %}selected{% endif %}>Kerst</option>
-      <option value="anders" {% if request.query.occasion == "anders" %}selected{% endif %}>Anders</option>
-    </select>
-  </section>
+<p>
+Perfect! And how old is your boyfriend?  
+Reminder: you can always reply by using the chat 
+</p>
 
-  <!-- Kolom 2: Eigenschappen -->
-  <section class="filter-column card">
-    <input type="text" name="is" placeholder="Hij/zij is..." value="{{ request.query.is | default: '' }}">
-    <input type="text" name="has" placeholder="Hij/zij heeft..." value="{{ request.query.has | default: '' }}">
-    <input type="text" name="likes" placeholder="Hij/zij houdt van..." value="{{ request.query.likes | default: '' }}">
-    <input type="text" name="wants" placeholder="Hij/zij wil graag..." value="{{ request.query.wants | default: '' }}">
-    <input type="text" name="dislikes" placeholder="Hij/zij wil geen..." value="{{ request.query.dislikes | default: '' }}">
-  </section>
+<form action="/search" method="get">
 
-  <!-- Kolom 3: Extra opties -->
-  <section class="filter-column card">
-    <select name="style">
-      <option value="">Soort cadeau...</option>
-      <option value="behoudend" {% if request.query.style == "behoudend" %}selected{% endif %}>Behoudend</option>
-      <option value="experimenteel" {% if request.query.style == "experimenteel" %}selected{% endif %}>Experimenteel</option>
-      <option value="hebben" {% if request.query.style == "hebben" %}selected{% endif %}>Hebben</option>
-      <option value="doen" {% if request.query.style == "doen" %}selected{% endif %}>Doen</option>
-    </select>
+<h2>Age</h2>
 
-    <section class="price-range">
-      <input type="number" name="minPrijs" placeholder="Min prijs" value="{{ request.query.minPrijs | default: '' }}">
-      <input type="number" name="maxPrijs" placeholder="Max prijs" value="{{ request.query.maxPrijs | default: '' }}">
-    </section>
+<button type="button">5-12 Child</button>
+<button type="button" class="active">13-19 Teen</button>
+<button type="button">20-39 Young adult</button>
+<button type="button">40-84 Adult</button>
+<button type="button">85+ Elderly</button>
 
-    <fieldset class="checkboxes">
-      <label><input type="checkbox" name="personalized" value="1" {% if request.query.personalized %}checked{% endif %}> Gepersonaliseerd</label>
-      <label><input type="checkbox" name="fastDelivery" value="1" {% if request.query.fastDelivery %}checked{% endif %}> Snelle levering</label>
-      <label><input type="checkbox" name="sustainable" value="1" {% if request.query.sustainable %}checked{% endif %}> Duurzaam</label>
-      <label><input type="checkbox" name="mailbox" value="1" {% if request.query.mailbox %}checked{% endif %}> Brievenbus</label>
-    </fieldset>
-  </section>
+<h2>How would you describe Marco?</h2>
+
+<p>If you can't find the tag write it down</p>
+
+<button type="button">Empathetic</button>
+<button type="button" class="active">Dreamer</button>
+<button type="button">Gritty</button>
+<button type="button" class="active">Sensitive</button>
+<button type="button">Stubborn</button>
+
+<input
+type="text"
+name="message"
+placeholder="Marco is a positive person"/>
+
+<button type="submit">Search</button>
 
 </form>
+</section>
+
+
+   <!-- Search bar-->
+<section class="search-bar-sidebar">
+  <form action="/search" method="get" id="giftCardFilterForm">
+
+    <!-- PRICE RANGE -->
+    <section class="filter-card">
+      <h2>Price range (€)</h2>
+      <input type="number" id="priceMin" placeholder="Min" min="0" step="1">
+      <input type="number" id="priceMax" placeholder="Max" min="0" step="1">
+    </section>
+
+    <!-- HAVE vs DO -->
+    <section class="filter-card">
+      <h4>Have vs Do</h4>
+      <button type="button" data-tag="have">Have</button>
+      <button type="button" data-tag="do">Do</button>
+    </section>
+
+    <!-- TRADITIONAL vs EXPERIMENTAL -->
+    <section class="filter-card">
+      <h2>Traditional vs Experimental</h2>
+      <button type="button" data-tag="traditional">Traditional</button>
+      <button type="button" data-tag="experimental">Experimental</button>
+    </section>
+
+    <!-- HIDDEN SEARCH INPUT -->
+    <input type="hidden" name="q" id="giftCardSearchInput" value="">
+
+    <!-- FORM ACTION BUTTONS -->
+    <section class="filter-actions">
+      <button type="button" id="resetFilters">Reset</button>
+      <button type="button" id="cancelFilters">Cancel</button>
+      <button type="submit">Apply</button>
+    </section>
+
+  </form>
+</section>
 
 {% render "partials/footer" %}
