@@ -1,0 +1,478 @@
+/* =====================================
+   Algemene basisstijlen
+===================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+a {
+  color: #3A5FB4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0082c3;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+/* =====================================
+   Header
+===================================== */
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dddddd;
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.logo h1 {
+  font-size: 26px;
+  color: #000000;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+/* =====================================
+   Filters / formulier
+===================================== */
+
+.filter-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+@media (min-width:768px) {
+  .filter-columns {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+.filter-column {
+  background: #F5F5F5;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #dddddd;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.filter-column input,
+.filter-column select {
+  padding: 8px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.price-range {
+  display: flex;
+  gap: .5rem;
+}
+
+.checkboxes label {
+  display: flex;
+  gap: .5rem;
+  font-size: 14px;
+}
+
+/* Sidebar container */
+.search-bar-sidebar {
+  top: 100px;                    /* afstand vanaf bovenkant viewport */
+  right: 20px;                   /* afstand vanaf rechts */
+  width: 280px;                  /* vergelijkbaar met search-bar breedte */
+  overflow-y: auto;              /* interne scroll als nodig */
+  padding: 20px;
+  background: #f5f5f5;           /*zelfde achtergrond als search-bar*/
+  border-radius: 20px;            /*zelfde afgeronde hoeken*/
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 9999;
+}
+
+/* Filterkaart in sidebar */
+.filter-card {
+  background: #ffffff;           /* witte kaart binnen de sidebar */
+  border-radius: 20px;           /*zelfde als search-bar*/
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* Headings in filterkaart */
+.filter-card h2,
+.filter-card h4 {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Buttons in filterkaart */
+.filter-card button {
+  margin: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;           /*zelfde als search-bar buttons*/
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Actieve buttons */
+.filter-card button.active {
+  background: #e0b000;           /*zelfde active color als search-bar*/
+  color: white;
+  border: none;
+}
+
+/* Actieknoppen onderaan sidebar */
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.filter-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background: white;
+}
+
+#resetFilters {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+#cancelFilters {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+}
+
+#giftCardFilterForm button[type="submit"] {
+  background: #e0b000;
+  color: white;
+  border: none;
+}
+
+/* =====================================
+   INVENTORY CONTAINER PRODUCT GRID
+   inventory.items → array van producten
+===================================== */
+
+.categoriepagina .container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding-top: 1rem;
+}
+
+/* mobiel-first → vanaf 768px 3 kolommen */
+
+@media (min-width:768px) {
+
+  .product-grid {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+}
+
+/* =====================================
+   PRODUCT CARD
+===================================== */
+
+.product-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #dddddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+/* hoofdproduct afbeelding */
+
+.product-image img {
+  width: 100%;
+  border: 1px solid #dddddd;
+  padding: 10px;
+  background: #F5F5F5;
+  border-radius: 6px;
+}
+
+/* focus / geselecteerd */
+
+.product-image img:focus,
+.product-image img.selected {
+  border-color: #0082c3;
+}
+
+/* thumbnails */
+
+.thumb-box {
+  display: flex;
+  gap: 5px;
+}
+
+.thumb-box img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: 1px solid #dddddd;
+  padding: 5px;
+  background: #F5F5F5;
+  border-radius: 4px;
+}
+
+/* =====================================
+   PRODUCT TEKST
+===================================== */
+
+/* producttitel */
+
+.product-info h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* prijs */
+
+.prijs {
+  font-weight: bold;
+  font-size: 20px;
+  color: #0082c3;
+}
+
+/* shop info */
+
+.shop a {
+  font-size: 14px;
+  color: #808080;
+}
+
+.shop a:hover {
+  color: #0082c3;
+}
+
+/* spotter info */
+
+.spotter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #999999;
+}
+
+.spotter img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+/* =====================================
+   PRODUCT BUTTONS
+===================================== */
+
+.button {
+  display: inline-block;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+/* primary */
+
+.button.primary {
+  background: #D9B200;
+  color: #ffffff;
+}
+
+.button.primary:hover {
+  background: #b89600;
+}
+
+/* secondary */
+.button.secondary {
+  background: #3A5FB4;
+  color: #ffffff;
+}
+
+.button.secondary:hover {
+  background: #2d4b90;
+}
+
+/* tertiary */
+.button.tertiary {
+  background: #F5F5F5;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
+.button.tertiary:hover {
+  background: #e9e9e9;
+}
+
+/* Searchbar */
+.search-bar {
+background: #f5f5f5;
+padding: 20px;
+border-radius: 20px;
+max-width: 350px;
+}
+
+.search-bar h3 {
+margin-top: 15px;
+margin-bottom: 8px;
+font-size: 16px;
+}
+
+.search-bar p {
+font-size: 13px;
+color: #555;
+margin-bottom: 10px;
+}
+
+.search-bar button {
+margin: 4px;
+padding: 6px 12px;
+border-radius: 20px;
+border: 1px solid #ddd;
+background: white;
+cursor: pointer;
+}
+
+.search-bar button.active {
+background: #e0b000;
+color: white;
+border: none;
+}
+
+.search-bar input {
+width: 100%;
+margin-top: 15px;
+padding: 10px;
+border-radius: 20px;
+border: 1px solid #ccc;
+}
+
+.search-bar button[type="submit"] {
+margin-top: 10px;
+width: 100%;
+background: #333;
+color: white;
+border: none;
+padding: 10px;
+}
+
+/* =====================================
+   PRODUCT FILTER PROPERTIES
+===================================== */
+
+.property-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.property-badges span {
+  background: #F5F5F5;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+/* kleur selectie */
+
+.color-select {
+  border: 1px solid #dddddd;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.color-select.active {
+  border-color: #0082c3;
+}
+
+/* maat selectie */
+
+.size-select {
+  padding: 8px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  max-width: 200px;
+}
+
+.size-select.active {
+  border-color: #0082c3;
+}
+
+/* =====================================
+   Footer
+===================================== */
+
+footer {
+  background: #F5F5F5;
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+footer h3 {
+  font-size: 18px;
+  margin-bottom: .5rem;
+}
+
+footer p {
+  font-size: 14px;
+  color: #808080;
+}
