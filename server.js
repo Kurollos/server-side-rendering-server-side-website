@@ -25,20 +25,21 @@ app.set('view engine', 'liquid'); // NIET app.set('views', ...) want dat veroorz
 // ROUTES
 // ====================
 app.get('/', async function (request, response) {
-   // Render index.liquid uit de Views map
-   // Geef hier eventueel data aan mee
-     const params = {
-    // Sorteer op naam
-    // 'sort': 'name',
+     const params = {};
+
+
+     if (request.query.price) {
+      params["filter[amount][_between]"] = "0, " + request.query.price
+     } else if (request.query.age) {
+      params["filter[amount][_between]"] = "vanaf, " + request.query.age
+      } else{
+      params["sort"] = "id";
+      }
  
-    // Geef aan welke data je per persoon wil terugkrijgen
-    'fields': 'name,image',
- 
-    // Combineer meerdere filters
- 
-  }
- 
- const productResponse = await fetch('https://fdnd-agency.directus.app/items/milledoni_products/?' + new URLSearchParams(params))
+ const productResponse = await fetch(
+  'https://fdnd-agency.directus.app/items/milledoni_products/?' + 
+   new URLSearchParams(params),
+)
  
 const productResponseJSON = await productResponse.json()
   console.log(productResponseJSON.data)
