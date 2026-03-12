@@ -70,25 +70,7 @@ app.get('/', async function (request, response) {
 
 });
 
-const buttons = document.querySelectorAll('#giftFinderForm button[type="button"]');
 
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const name = btn.dataset.name;
-    const value = btn.dataset.value;
-
-    // Alle buttons van dezelfde groep deselecteren
-    document.querySelectorAll(`#giftFinderForm button[data-name="${name}"]`).forEach(b => {
-      b.classList.remove('active');
-    });
-
-    // Actief maken
-    btn.classList.add('active');
-
-    // Value in hidden input zetten
-    document.getElementById('input' + name.charAt(0).toUpperCase() + name.slice(1)).value = value;
-  });
-});
 
 
 // POST route
